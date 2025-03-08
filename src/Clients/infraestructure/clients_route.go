@@ -28,9 +28,9 @@ func NewClientRoutes(
 func (cr *ClientRoutes) SetupRoutes(router *gin.Engine) {
 	clients := router.Group("/clients")
 	{
-		clients.POST("/", cr.CreateClientController.Handle)  
-		clients.GET("/", cr.GetClientsController.Handle)     
-		clients.PUT("/:id", cr.UpdateClientController.Handle) 
-		clients.DELETE("/:id", cr.DeleteClientController.Handle) 
+		clients.POST("", cr.CreateClientController.Handle)
+		clients.GET("", cr.GetClientsController.Handle)
+		clients.PUT("/:id", cr.UpdateClientController.Handle)
+		clients.DELETE("/:id", cr.DeleteClientController.Handle)
 	}
 }

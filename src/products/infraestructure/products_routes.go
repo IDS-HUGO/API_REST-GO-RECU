@@ -9,7 +9,7 @@ type ProductRoutes struct {
 	GetProductsController    *GetProductsController
 	UpdateProductController  *UpdateProductController
 	DeleteProductController  *DeleteProductController
-	GetProductByIdController *GetProductByIdController 
+	GetProductByIdController *GetProductByIdController
 }
 
 func NewProductRoutes(
@@ -17,35 +17,24 @@ func NewProductRoutes(
 	gpc *GetProductsController,
 	upc *UpdateProductController,
 	dpc *DeleteProductController,
-	gpbc *GetProductByIdController, 
+	gpbc *GetProductByIdController,
 ) *ProductRoutes {
 	return &ProductRoutes{
 		CreateProductController:  cpc,
 		GetProductsController:    gpc,
 		UpdateProductController:  upc,
 		DeleteProductController:  dpc,
-		GetProductByIdController: gpbc, 
+		GetProductByIdController: gpbc,
 	}
 }
 
 func (pr *ProductRoutes) SetupRoutes(router *gin.Engine) {
-	router.POST("/products", func(c *gin.Context) {
-		pr.CreateProductController.Execute(c)
-	})
-
-	router.GET("/products", func(c *gin.Context) {
-		pr.GetProductsController.Execute(c)
-	})
-
-	router.GET("/products/:id", func(c *gin.Context) { 
-		pr.GetProductByIdController.Execute(c)//
-	})
-
-	router.PUT("/products/:id", func(c *gin.Context) {
-		pr.UpdateProductController.Execute(c)
-	})
-
-	router.DELETE("/products/:id", func(c *gin.Context) {
-		pr.DeleteProductController.Execute(c)
-	})
+	products := router.Group("/products")
+	{
+		products.POST("", pr.CreateProductController.Execute) // Eliminamos la barra "/"
+		products.GET("", pr.GetProductsController.Execute)    // Eliminamos la barra "/"
+		products.GET("/:id", pr.GetProductByIdController.Execute)
+		products.PUT("/:id", pr.UpdateProductController.Execute)
+		products.DELETE("/:id", pr.DeleteProductController.Execute)
+	}
 }
