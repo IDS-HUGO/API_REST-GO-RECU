@@ -27,7 +27,7 @@ func main() {
 
 	// Configuración de CORS (Permitir Angular y Vite)
 	router.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"http://localhost:4200", "http://localhost:5173"}, // Angular y Vite
+		AllowOrigins:     []string{"http://54.174.209.171", "http://localhost:5173"},
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
 		ExposeHeaders:    []string{"Content-Length"},
